@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khata — the passbook that thinks</title>
+  <meta name="description"
+    content="Khata is a personal finance assistant that reads your spending like an old bank passbook, then tells you what it means.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <div class="grain"></div>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a href="#top" class="wordmark">ख<span>Khata</span></a>
+      <nav class="main-nav">
+        <a href="#snapshot">Snapshot</a>
+        <a href="#assistant">Assistant</a>
+        <a href="#features">Features</a>
+        <a href="#simulator">What if?</a>
+      </nav>
+      <a class="btn btn-ghost" href="login.html">Open the demo</a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ================= HERO ================= -->
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <p class="kicker">A personal finance manager</p>
+        <h1>Your money keeps a diary.<br>Khata reads it.</h1>
+        <p class="lede">Every rupee you earn and spend is already writing a story about you. Khata turns that story into
+          a passbook that talks back — it categorises the entries, predicts the next page, and flags the lines that
+          don't belong.</p>
+        <div class="hero-actions">
+          <a href="login.html" class="btn btn-primary">Try the live app →</a>
+          <a href="#snapshot" class="btn btn-text">See this month's page ↴</a>
+        </div>
+        <dl class="hero-stats">
+          <div>
+            <dt>Entries read / month</dt>
+            <dd>1,240+</dd>
+          </div>
+          <div>
+            <dt>Categories auto-tagged</dt>
+            <dd>96%</dd>
+          </div>
+          <div>
+            <dt>Time to first insight</dt>
+            <dd>&lt; 2 sec</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="hero-passbook" aria-hidden="true">
+        <div class="passbook">
+          <div class="passbook-head">
+            <span class="passbook-bank">KHATA NATIONAL LEDGER</span>
+            <span class="passbook-acct">A/C ****4471</span>
+          </div>
+          <table class="passbook-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Particulars</th>
+                <th>Withdrawal</th>
+                <th>Deposit</th>
+                <th>Balance</th>
+              </tr>
+            </thead>
+            <tbody id="hero-rows">
+              <tr class="row-in">
+                <td>03 Sep</td>
+                <td>Salary — Sept</td>
+                <td></td>
+                <td>40,000</td>
+                <td>52,180</td>
+              </tr>
+              <tr class="row-in">
+                <td>04 Sep</td>
+                <td>Zomato — Biryani</td>
+                <td class="debit">320</td>
+                <td></td>
+                <td>51,860</td>
+              </tr>
+              <tr class="row-in">
+                <td>06 Sep</td>
+                <td>Netflix, monthly</td>
+                <td class="debit">649</td>
+                <td></td>
+                <td>51,211</td>
+              </tr>
+              <tr class="row-in">
+                <td>09 Sep</td>
+                <td>Big Bazaar — Shopping</td>
+                <td class="debit">4,180</td>
+                <td></td>
+                <td>47,031</td>
+              </tr>
+              <tr class="row-in flag">
+                <td>09 Sep</td>
+                <td>Reliance Digital ⚠</td>
+                <td class="debit">12,400</td>
+                <td></td>
+                <td>34,631</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="passbook-note">⚠ line 5 is 286% above your usual shopping entry — flagged automatically.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SNAPSHOT ================= -->
+    <section id="snapshot" class="section">
+      <div class="wrap">
+        <p class="section-kicker">01 — This month, at a glance</p>
+        <h2>The dashboard, written like a ledger.</h2>
+
+        <div class="snapshot-grid">
+
+          <div class="ledger-card">
+            <h3>Income &amp; expense</h3>
+            <ul class="ledger-list">
+              <li><span>Salary</span><span class="mono">₹40,000</span></li>
+              <li><span>Freelancing</span><span class="mono">₹8,000</span></li>
+              <li><span>Other</span><span class="mono">₹2,000</span></li>
+              <li class="total"><span>Total income</span><span class="mono">₹50,000</span></li>
+            </ul>
+            <ul class="ledger-list">
+              <li><span>Food</span><span class="mono debit">₹7,200</span></li>
+              <li><span>Shopping</span><span class="mono debit">₹12,400</span></li>
+              <li><span>Bills</span><span class="mono debit">₹5,000</span></li>
+              <li><span>Transport</span><span class="mono debit">₹2,100</span></li>
+              <li><span>Other</span><span class="mono debit">₹5,700</span></li>
+              <li class="total"><span>Total expenses</span><span class="mono debit">₹32,400</span></li>
+            </ul>
+            <div class="savings-line">
+              <span>Savings this month</span>
+              <span class="mono savings-amt">₹17,600 <small>(35.2%)</small></span>
+            </div>
+          </div>
+
+          <div class="ledger-card">
+            <h3>Where it went</h3>
+            <canvas id="categoryChart" height="220" role="img"
+              aria-label="Bar chart of spending by category: shopping is highest, then food, bills, other, transport"></canvas>
+            <p class="card-foot">Biggest mover: <strong>Shopping</strong>, up 42% on last month.</p>
+          </div>
+
+          <div class="ledger-card score-card">
+            <h3>Financial health</h3>
+            <div class="seal" role="img" aria-label="Financial health score: 78 out of 100">
+              <svg viewBox="0 0 120 120">
+                <circle class="seal-track" cx="60" cy="60" r="52"></circle>
+                <circle class="seal-progress" cx="60" cy="60" r="52" id="sealRing"></circle>
+              </svg>
+              <div class="seal-number"><span>78</span><small>/ 100</small></div>
+            </div>
+            <ul class="score-breakdown">
+              <li><span>Savings rate</span><i style="--v:80%"></i></li>
+              <li><span>Expense ratio</span><i style="--v:60%"></i></li>
+              <li><span>Emergency fund</span><i style="--v:42%"></i></li>
+              <li><span>Goal progress</span><i style="--v:75%"></i></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ASSISTANT ================= -->
+    <section id="assistant" class="section section-tint">
+      <div class="wrap">
+        <p class="section-kicker">02 — Ask the ledger</p>
+        <h2>An assistant that's actually read your passbook.</h2>
+        <p class="section-lede">Not a chatbot bolted onto a dashboard — it answers from the same entries you see above,
+          with the same numbers.</p>
+
+        <div class="chat-shell">
+          <div class="chat-window" id="chatWindow">
+            <div class="chat-msg bot">
+              <p>Hi, I've gone through September's entries. Ask me anything about them — or try one of these:</p>
+            </div>
+          </div>
+          <div class="chat-suggestions" id="chatSuggestions">
+            <button data-q="why">Why did I spend so much this month?</button>
+            <button data-q="afford">Can I afford ₹5,000 shoes?</button>
+            <button data-q="predict">What will next month look like?</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FEATURES ================= -->
+    <section id="features" class="section">
+      <div class="wrap">
+        <p class="section-kicker">03 — What's on every page</p>
+        <h2>Six habits of a good ledger.</h2>
+
+        <div class="entry-list">
+
+          <article class="entry">
+            <span class="entry-no">01</span>
+            <div>
+              <h3>Reads plain language, not forms</h3>
+              <p>Type "spent 450 on dinner yesterday" and Khata files it as ₹450, Food, yesterday, expense — no
+                dropdowns.</p>
+            </div>
+          </article>
+
+          <article class="entry">
+            <span class="entry-no">02</span>
+            <div>
+              <h3>Catches the entry that doesn't belong</h3>
+              <p>It learns your normal shopping range, then tells you the moment a line is 200%+ off it — like the
+                Reliance Digital entry above.</p>
+            </div>
+          </article>
+
+          <article class="entry">
+            <span class="entry-no">03</span>
+            <div>
+              <h3>Predicts next month's page</h3>
+              <p>A simple regression over your history writes a forecast row for every category before the month even
+                starts.</p>
+            </div>
+          </article>
+
+          <article class="entry">
+            <span class="entry-no">04</span>
+            <div>
+              <h3>Finds the subscriptions you forgot</h3>
+              <p>Netflix, Spotify and Prime get grouped into one recurring total, with a nudge when one goes unused.</p>
+            </div>
+
+          </article>
+
+          <article class="entry">
+            <span class="entry-no">05</span>
+            <div>
+              <h3>Tracks a goal like a running balance</h3>
+              <p>Set "Buy a bike, ₹1,20,000" and watch the remaining balance count down with every saved rupee.</p>
+            </div>
+
+          </article>
+
+          <article class="entry">
+            <span class="entry-no">06</span>
+            <div>
+              <h3>Makes discipline visible</h3>
+              <p>Streaks and small badges for the boring wins — a no-spend week counts for more than it feels like.</p>
+            </div>
+
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SIMULATOR ================= -->
+    <section id="simulator" class="section section-tint">
+      <div class="wrap simulator-wrap">
+        <p class="section-kicker">04 — Before you spend</p>
+        <h2>"What if I bought it?" — answered before you do.</h2>
+        <p class="section-lede">Drag the amount. Khata replays your month as if the purchase already happened.</p>
+
+        <div class="sim-card">
+          <div class="sim-control">
+            <label for="simAmount">Hypothetical purchase</label>
+            <div class="sim-amount mono" id="simAmountLabel">₹70,000</div>
+            <input type="range" id="simAmount" min="0" max="150000" step="1000" value="70000">
+            <p class="sim-hint" id="simHint">e.g. a laptop</p>
+          </div>
+
+          <div class="sim-results">
+            <div class="sim-row">
+              <span>Available savings</span>
+              <span class="mono"><span id="simSavingsBefore">₹20,000</span> → <strong
+                  id="simSavingsAfter">₹0</strong></span>
+            </div>
+            <div class="sim-row">
+              <span>Goal completion</span>
+              <span class="mono"><span id="simGoalBefore">8 months</span> → <strong id="simGoalAfter">11
+                  months</strong></span>
+            </div>
+            <div class="sim-row">
+              <span>Emergency fund status</span>
+              <span class="mono status-safe" id="simEmergency">Safe</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <p class="wordmark small">ख<span>Khata</span></p>
+        <p>A demo interface for a college project — every number on this page is illustrative, not live data.</p>
+      </div>
+      <div class="footer-cols">
+        <div>
+          <h4>Product</h4>
+          <a href="#snapshot">Snapshot</a>
+          <a href="#assistant">Assistant</a>
+          <a href="#features">Features</a>
+        </div>
+        <div>
+          <h4>Built with</h4>
+          <p class="mono small-mono">HTML · CSS · Chart.js</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="js/hero-dynamic.js"></script>
+  <script src="js/ai-demo.js"></script>
+  <script src="js/script.js"></script>
+</body>
+
+</html>

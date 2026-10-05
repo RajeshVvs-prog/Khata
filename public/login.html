@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign in — Khata</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-body">
+<div class="grain"></div>
+
+<div class="auth-wrap">
+  <a href="index.html" class="wordmark auth-brand">ख<span>Khata</span></a>
+
+  <div class="auth-card">
+    <div class="auth-tabs" role="tablist">
+      <button class="auth-tab active" data-tab="login" role="tab" aria-selected="true">Log in</button>
+      <button class="auth-tab" data-tab="signup" role="tab" aria-selected="false">Open an account</button>
+    </div>
+
+    <form id="loginForm" class="auth-form" data-panel="login">
+      <label>Email
+        <input type="email" placeholder="you@college.edu" required>
+      </label>
+      <label>Password
+        <input type="password" placeholder="••••••••" required>
+      </label>
+      <button type="submit" class="btn btn-primary auth-submit">Log in</button>
+    </form>
+
+    <form id="signupForm" class="auth-form hidden" data-panel="signup">
+      <label>Full name
+        <input type="text" id="signupName" placeholder="Your name" required>
+      </label>
+      <label>Monthly income
+        <input type="text" id="signupIncome" placeholder="₹50,000" required>
+      </label>
+      <label>Email
+        <input type="email" id="signupEmail" placeholder="you@college.edu" required>
+      </label>
+      <label>Password
+        <input type="password" id="signupPassword" placeholder="Create a password" required>
+      </label>
+      <button type="submit" class="btn btn-primary auth-submit">Open account</button>
+    </form>
+
+    <div class="auth-divider"><span>or</span></div>
+
+    <a href="app.html" class="btn btn-ghost auth-demo-btn">Continue as demo user →</a>
+    <p class="auth-note">No sign-up needed — this loads the app with a pre-filled sample ledger so you can see everything working.</p>
+  </div>
+</div>
+
+<script src="js/auth.js"></script>
+</body>
+</html>

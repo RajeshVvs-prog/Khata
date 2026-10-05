@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Khata</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="grain"></div>
+
+<div class="app-shell">
+
+  <aside class="app-sidebar">
+    <a href="index.html" class="wordmark">ख<span>Khata</span></a>
+    <nav aria-label="App navigation">
+      <ul class="side-nav" id="sideNav">
+        <li><button data-view="dashboard" class="active">Dashboard</button></li>
+        <li><button data-view="transactions">Transactions</button></li>
+        <li><button data-view="goals">Goals</button></li>
+        <li><button data-view="subscriptions">Subscriptions</button></li>
+        <li><button data-view="reports">Monthly report</button></li>
+        <li><button data-view="assistant">Assistant</button></li>
+        <li><button data-view="settings">Settings</button></li>
+      </ul>
+    </nav>
+    <div class="sidebar-foot">
+      <span class="demo-badge">Demo account</span>
+      <a href="login.html" class="sidebar-logout">Log out</a>
+    </div>
+  </aside>
+
+  <main class="app-main">
+
+    <div class="app-topbar">
+      <div>
+        <p class="topbar-eyebrow" id="viewEyebrow">September 2026</p>
+        <h1 class="topbar-title" id="viewTitle">Dashboard</h1>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-primary" id="quickAddBtn">+ Add entry</button>
+      </div>
+    </div>
+
+    <!-- ============ DASHBOARD ============ -->
+    <section class="app-view active" id="view-dashboard">
+      <div class="stat-row">
+        <div class="stat-card">
+          <span>Income</span>
+          <strong class="mono" id="statIncome">₹50,000</strong>
+        </div>
+        <div class="stat-card">
+          <span>Expenses</span>
+          <strong class="mono debit" id="statExpenses">₹32,400</strong>
+        </div>
+        <div class="stat-card">
+          <span>Savings</span>
+          <strong class="mono" id="statSavings">₹17,600</strong>
+          <small id="statSavingsRate">35.2% of income</small>
+        </div>
+        <div class="stat-card">
+          <span>Health score</span>
+          <strong class="mono" id="statScore">78/100</strong>
+        </div>
+      </div>
+
+      <div class="snapshot-grid">
+        <div class="ledger-card">
+          <h3>Spending by category</h3>
+          <canvas id="dashChart" height="220"></canvas>
+        </div>
+        <div class="ledger-card">
+          <h3>Recent entries</h3>
+          <ul class="ledger-list" id="recentTx"></ul>
+          <button class="btn btn-text" data-view-link="transactions">See all transactions →</button>
+        </div>
+        <div class="ledger-card">
+          <h3>Anomaly watch</h3>
+          <div id="anomalyBox"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TRANSACTIONS ============ -->
+    <section class="app-view" id="view-transactions">
+      <div class="view-toolbar">
+        <input type="search" id="txSearch" placeholder="Search entries…">
+        <div class="filter-chips" id="categoryFilters">
+          <button class="active" data-cat="all">All</button>
+        </div>
+      </div>
+      <table class="tx-table">
+        <thead>
+          <tr><th>Date</th><th>Particulars</th><th>Category</th><th>Amount</th></tr>
+        </thead>
+        <tbody id="txTableBody"></tbody>
+      </table>
+    </section>
+
+    <!-- ============ GOALS ============ -->
+    <section class="app-view" id="view-goals">
+      <div class="goals-grid" id="goalsGrid"></div>
+      <form class="inline-form" id="addGoalForm">
+        <h3>Add a goal</h3>
+        <div class="inline-form-row">
+          <input type="text" id="goalName" placeholder="Goal name, e.g. Buy a bike" required>
+          <input type="number" id="goalTarget" placeholder="Target ₹" required>
+          <input type="number" id="goalSaved" placeholder="Already saved ₹" value="0">
+          <button type="submit" class="btn btn-primary">Add goal</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ============ SUBSCRIPTIONS ============ -->
+    <section class="app-view" id="view-subscriptions">
+      <div class="ledger-card">
+        <h3>Active subscriptions</h3>
+        <ul class="ledger-list" id="subList"></ul>
+        <div class="savings-line">
+          <span>Total per month</span>
+          <span class="mono" id="subTotalMonth">₹0</span>
+        </div>
+        <div class="savings-line">
+          <span>Projected per year</span>
+          <span class="mono" id="subTotalYear">₹0</span>
+        </div>
+      </div>
+
+      <form class="inline-form" id="addSubForm">
+        <h3>Add a subscription</h3>
+        <div class="inline-form-row">
+          <input type="text" id="subName" placeholder="e.g. Netflix, Spotify, Gym" required>
+          <input type="number" id="subAmount" placeholder="Amount ₹" required min="1">
+          <select id="subFrequency">
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
+            <option value="weekly">Weekly</option>
+          </select>
+          <select id="subCategory">
+            <option value="Subscriptions">Subscriptions</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Health">Health</option>
+            <option value="Education">Education</option>
+            <option value="Other">Other</option>
+          </select>
+          <button type="submit" class="btn btn-primary">Add subscription</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ============ REPORTS ============ -->
+    <section class="app-view" id="view-reports">
+      <div class="report-card" id="reportCard">
+        <h3>Your monthly report</h3>
+        <div class="report-row"><span>Income</span><span class="mono" id="repIncome">₹50,000</span></div>
+        <div class="report-row"><span>Expenses</span><span class="mono debit" id="repExpenses">₹32,400</span></div>
+        <div class="report-row total"><span>Savings</span><span class="mono" id="repSavings">₹17,600</span></div>
+        <div class="report-row"><span>Savings rate</span><span class="mono" id="repRate">35.2%</span></div>
+        <div class="report-row"><span>Top category</span><span id="repTop">Shopping — ₹12,400</span></div>
+        <div class="report-row"><span>Biggest increase</span><span id="repIncrease">Shopping, +42%</span></div>
+        <div class="report-row"><span>Financial score</span><span class="mono" id="repScore">78 / 100</span></div>
+      </div>
+    </section>
+
+    <!-- ============ ASSISTANT ============ -->
+    <section class="app-view" id="view-assistant">
+      <div class="chat-shell app-chat">
+        <div class="chat-window" id="appChatWindow">
+          <div class="chat-msg bot"><p>I've read through your ledger. Ask me anything, or try a prompt below.</p></div>
+        </div>
+        <div class="chat-suggestions" id="appChatSuggestions">
+          <button data-q="why">Why did I spend so much this month?</button>
+          <button data-q="afford">Can I afford ₹5,000 shoes?</button>
+          <button data-q="predict">What will next month look like?</button>
+          <button data-q="goal">Am I on track for my goals?</button>
+        </div>
+        <form class="chat-input-row" id="chatInputForm">
+          <input type="text" id="chatFreeInput" placeholder="Type your own question…">
+          <button type="submit" class="btn btn-primary">Ask</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ SETTINGS ============ -->
+    <section class="app-view" id="view-settings">
+      <form class="settings-form" id="settingsForm">
+        <h3>Profile</h3>
+        <label>Full name <input type="text" value="Demo User"></label>
+        <label>Monthly income <input type="text" id="settingsIncome" value="₹50,000"></label>
+        <label>Primary financial goal <input type="text" value="Buy a bike"></label>
+        <label>Preferred currency
+          <select>
+            <option>INR (₹)</option>
+            <option>USD ($)</option>
+            <option>EUR (€)</option>
+          </select>
+        </label>
+        <label>Family / dependents <input type="text" placeholder="e.g. 2 dependents"></label>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </form>
+    </section>
+
+  </main>
+</div>
+
+<!-- Add entry modal -->
+<div class="modal-overlay hidden" id="addModal">
+  <div class="modal">
+    <h3>Add an entry</h3>
+    <p class="modal-hint">Type it the way you'd say it — Khata will pull out the amount and category.</p>
+    <form id="addTxForm">
+      <input type="text" id="txFreeInput" placeholder="e.g. Bought biryani from Zomato ₹320" required>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-text" id="cancelAdd">Cancel</button>
+        <button type="submit" class="btn btn-primary">Add to ledger</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="js/auth-check.js"></script>
+<script src="js/database.js"></script>
+<script src="js/app.js"></script>
+<script src="js/ai-assistant.js"></script>
+</body>
+</html>
