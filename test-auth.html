@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .success { color: green; }
+        .error { color: red; }
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Authentication Test</h1>
+    
+    <div class="test-section">
+        <h2>Test Signup</h2>
+        <input type="text" id="testName" placeholder="Full Name" value="Test User">
+        <input type="email" id="testEmail" placeholder="Email" value="testuser@gmail.com">
+        <input type="password" id="testPassword" placeholder="Password" value="password123">
+        <button onclick="testSignup()">Test Signup</button>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Login</h2>
+        <input type="email" id="loginEmail" placeholder="Email" value="testuser@gmail.com">
+        <input type="password" id="loginPassword" placeholder="Password" value="password123">
+        <button onclick="testLogin()">Test Login</button>
+    </div>
+
+    <div id="output"></div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+
+        function log(message, type = 'info') {
+            const output = document.getElementById('output');
+            const time = new Date().toLocaleTimeString();
+            const className = type === 'error' ? 'error' : (type === 'success' ? 'success' : '');
+            output.innerHTML += `<div class="${className}">[${time}] ${message}</div>`;
+            console.log(message);
+        }
+
+        async function testSignup() {
+            log('Testing signup...');
+            const name = document.getElementById('testName').value;
+            const email = document.getElementById('testEmail').value;
+            const password = document.getElementById('testPassword').value;
+
+            try {
+                log(`Sending request to ${API_URL}/auth/signup`);
+                const response = await fetch(`${API_URL}/auth/signup`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password, fullName: name })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    log(`✓ Signup successful: ${JSON.stringify(data, null, 2)}`, 'success');
+                } else {
+                    log(`✗ Signup failed: ${data.error}`, 'error');
+                }
+            } catch (error) {
+                log(`✗ Connection error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testLogin() {
+            log('Testing login...');
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                log(`Sending request to ${API_URL}/auth/login`);
+                const response = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    log(`✓ Login successful: ${JSON.stringify(data.user.email)}`, 'success');
+                    log(`Session token: ${data.session.access_token.substring(0, 20)}...`, 'success');
+                } else {
+                    log(`✗ Login failed: ${data.error}`, 'error');
+                }
+            } catch (error) {
+                log(`✗ Connection error: ${error.message}`, 'error');
+            }
+        }
+    </script>
+</body>
+</html>
