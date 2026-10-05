@@ -1,4 +1,4 @@
-require('dotenv').config();
+﻿require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const { createClient } = require('@supabase/supabase-js');
@@ -518,9 +518,11 @@ app.post('/api/subscriptions', async (req, res) => {
   }
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Khata server running on http://localhost:${PORT}`);
-  console.log(`📊 Dashboard: http://localhost:${PORT}/index.html`);
-  console.log(`🔐 Login: http://localhost:${PORT}/login.html`);
-});
+// Start server - listen locally, export for Vercel
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log('Khata server running on http://localhost:' + PORT);
+  });
+}
+
+module.exports = app;
